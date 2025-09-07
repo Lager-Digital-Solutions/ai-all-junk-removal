@@ -1,0 +1,23 @@
+# Python cache
+__pycache__/
+*.py[cod]
+
+# Virtual envs
+.venv/
+venv/
+env/
+
+# Django DB (if using SQLite locally)
+db.sqlite3
+db.sqlite3-journal
+
+# Generated files
+staticfiles/
+static_root/
+media/
+
+# Secrets
+.env
+
+# macOS cruft
+.DS_Store

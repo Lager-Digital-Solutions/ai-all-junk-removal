@@ -1,0 +1,455 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CleanSweep Junk Removal - Professional Junk Removal Services</title>
+    <meta name="description" content="Professional junk removal services for homes and businesses. Fast, reliable, and eco-friendly disposal. Get your free quote today!">
+    <link rel="stylesheet" href="{% static 'junk/css/styles.css' %}">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <nav class="nav">
+            <div class="nav-container">
+                <div class="nav-logo">
+                    <i class="fas fa-truck"></i>
+                    <span>CleanSweep</span>
+                </div>
+                <ul class="nav-menu" id="nav-menu">
+                    <li><a href="#home" class="nav-link">Home</a></li>
+                    <li class="dropdown">
+                        <a href="#services" class="nav-link">Services <i class="fas fa-chevron-down"></i></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#residential">Residential Cleanouts</a></li>
+                            <li><a href="#commercial">Commercial Services</a></li>
+                            <li><a href="#construction">Construction Debris</a></li>
+                            <li><a href="#eco-friendly">Eco-Friendly Disposal</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="#about" class="nav-link">About Us</a></li>
+                    <li><a href="#contact" class="nav-link">Contact</a></li>
+                </ul>
+                <button class="cta-button">Get Free Quote</button>
+                <div class="hamburger" id="hamburger">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <h1 class="hero-title">Transform Your Space with Expert Junk Removal</h1>
+            <p class="hero-subtitle">Fast, reliable, and eco-friendly junk removal services for homes and businesses. We handle everything from furniture to construction debris.</p>
+            <div class="hero-buttons">
+                <button class="btn-primary" onclick="openQuoteModal()">Book Now</button>
+                <button class="btn-secondary" onclick="scrollToSection('services')">Our Services</button>
+            </div>
+            <div class="hero-features">
+                <div class="feature">
+                    <i class="fas fa-clock"></i>
+                    <span>Same Day Service</span>
+                </div>
+                <div class="feature">
+                    <i class="fas fa-leaf"></i>
+                    <span>Eco-Friendly</span>
+                </div>
+                <div class="feature">
+                    <i class="fas fa-shield-alt"></i>
+                    <span>Fully Insured</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="services">
+        <div class="container">
+            <div class="section-header">
+                <h2>Our Services</h2>
+                <p>Comprehensive junk removal solutions tailored to your needs</p>
+            </div>
+            <div class="services-grid">
+                <div class="service-card" data-aos="fade-up">
+                    <div class="service-icon">
+                        <i class="fas fa-home"></i>
+                    </div>
+                    <h3>Residential Cleanouts</h3>
+                    <p>Complete home cleanouts, basement clearing, attic cleaning, and furniture removal for homeowners.</p>
+                    <ul class="service-features">
+                        <li>Furniture & Appliances</li>
+                        <li>Basement & Attic Cleanouts</li>
+                        <li>Estate Cleanouts</li>
+                        <li>Garage Cleaning</li>
+                    </ul>
+                    <button class="service-btn">Learn More</button>
+                </div>
+                <div class="service-card" data-aos="fade-up" data-aos-delay="100">
+                    <div class="service-icon">
+                        <i class="fas fa-building"></i>
+                    </div>
+                    <h3>Commercial Services</h3>
+                    <p>Professional junk removal for offices, retail spaces, and commercial properties of all sizes.</p>
+                    <ul class="service-features">
+                        <li>Office Cleanouts</li>
+                        <li>Retail Space Clearing</li>
+                        <li>Warehouse Cleaning</li>
+                        <li>Equipment Removal</li>
+                    </ul>
+                    <button class="service-btn">Learn More</button>
+                </div>
+                <div class="service-card" data-aos="fade-up" data-aos-delay="200">
+                    <div class="service-icon">
+                        <i class="fas fa-hard-hat"></i>
+                    </div>
+                    <h3>Construction Debris</h3>
+                    <p>Safe and efficient removal of construction waste, renovation debris, and demolition materials.</p>
+                    <ul class="service-features">
+                        <li>Renovation Debris</li>
+                        <li>Demolition Cleanup</li>
+                        <li>Drywall & Flooring</li>
+                        <li>Contractor Services</li>
+                    </ul>
+                    <button class="service-btn">Learn More</button>
+                </div>
+                <div class="service-card" data-aos="fade-up" data-aos-delay="300">
+                    <div class="service-icon">
+                        <i class="fas fa-recycle"></i>
+                    </div>
+                    <h3>Eco-Friendly Disposal</h3>
+                    <p>Responsible disposal with focus on recycling, donation, and environmentally conscious practices.</p>
+                    <ul class="service-features">
+                        <li>Recycling Services</li>
+                        <li>Donation Coordination</li>
+                        <li>Electronic Waste</li>
+                        <li>Hazardous Materials</li>
+                    </ul>
+                    <button class="service-btn">Learn More</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Process Section -->
+    <section class="process">
+        <div class="container">
+            <div class="section-header">
+                <h2>How It Works</h2>
+                <p>Simple, straightforward process from quote to completion</p>
+            </div>
+            <div class="process-steps">
+                <div class="step" data-aos="fade-right">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <h3>Get Your Quote</h3>
+                        <p>Contact us for a free, no-obligation quote. We'll assess your needs and provide transparent pricing.</p>
+                    </div>
+                </div>
+                <div class="step" data-aos="fade-right" data-aos-delay="100">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <h3>Schedule Service</h3>
+                        <p>Choose a convenient time that works for you. We offer flexible scheduling including same-day service.</p>
+                    </div>
+                </div>
+                <div class="step" data-aos="fade-right" data-aos-delay="200">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <h3>We Handle Everything</h3>
+                        <p>Our professional team arrives on time, removes your junk safely, and cleans up the area completely.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="testimonials">
+        <div class="container">
+            <div class="section-header">
+                <h2>What Our Customers Say</h2>
+                <p>Don't just take our word for it - hear from satisfied customers</p>
+            </div>
+            <div class="testimonials-carousel" id="testimonials-carousel">
+                <div class="testimonial active">
+                    <div class="testimonial-content">
+                        <div class="stars">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <p>"CleanSweep made our office renovation so much easier. They removed all the old furniture and debris quickly and professionally. Highly recommend!"</p>
+                        <div class="testimonial-author">
+                            <strong>Sarah Johnson</strong>
+                            <span>Business Owner</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial">
+                    <div class="testimonial-content">
+                        <div class="stars">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <p>"Fantastic service! They cleared out my entire basement in just a few hours. The team was courteous, efficient, and left everything spotless."</p>
+                        <div class="testimonial-author">
+                            <strong>Mike Chen</strong>
+                            <span>Homeowner</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial">
+                    <div class="testimonial-content">
+                        <div class="stars">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <p>"I was impressed by their commitment to recycling and donating items. They're not just about removal - they care about the environment too."</p>
+                        <div class="testimonial-author">
+                            <strong>Emily Rodriguez</strong>
+                            <span>Environmental Consultant</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="carousel-controls">
+                <button class="carousel-btn prev" onclick="changeTestimonial(-1)">
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+                <button class="carousel-btn next" onclick="changeTestimonial(1)">
+                    <i class="fas fa-chevron-right"></i>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about">
+        <div class="container">
+            <div class="about-content">
+                <div class="about-text" data-aos="fade-right">
+                    <h2>About CleanSweep</h2>
+                    <p>With over 10 years of experience in the junk removal industry, CleanSweep has become the trusted choice for homeowners and businesses throughout the region.</p>
+                    <p>We're committed to providing fast, reliable service while maintaining our focus on environmental responsibility. Our team is fully licensed, insured, and trained to handle any junk removal challenge.</p>
+                    <div class="about-stats">
+                        <div class="stat">
+                            <h3>10,000+</h3>
+                            <p>Jobs Completed</p>
+                        </div>
+                        <div class="stat">
+                            <h3>95%</h3>
+                            <p>Recycled Materials</p>
+                        </div>
+                        <div class="stat">
+                            <h3>24/7</h3>
+                            <p>Customer Support</p>
+                        </div>
+                    </div>
+                    <div class="certifications">
+                        <div class="cert">
+                            <i class="fas fa-certificate"></i>
+                            <span>Licensed & Insured</span>
+                        </div>
+                        <div class="cert">
+                            <i class="fas fa-leaf"></i>
+                            <span>Eco-Certified</span>
+                        </div>
+                        <div class="cert">
+                            <i class="fas fa-award"></i>
+                            <span>BBB A+ Rating</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="about-image" data-aos="fade-left">
+                    <img src="/placeholder.svg?height=400&width=500" alt="CleanSweep professional team">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact">
+        <div class="container">
+            <div class="section-header">
+                <h2>Get Your Free Quote Today</h2>
+                <p>Ready to reclaim your space? Contact us for a free, no-obligation quote</p>
+            </div>
+            <div class="contact-content">
+                <div class="contact-info" data-aos="fade-right">
+                    <div class="contact-item">
+                        <i class="fas fa-phone"></i>
+                        <div>
+                            <h3>Call Us</h3>
+                            <p>(555) 123-JUNK</p>
+                            <span>Available 24/7</span>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-envelope"></i>
+                        <div>
+                            <h3>Email Us</h3>
+                            <p>info@cleansweepjunk.com</p>
+                            <span>Quick Response Guaranteed</span>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <div>
+                            <h3>Service Area</h3>
+                            <p>Greater Metro Area</p>
+                            <span>50+ Mile Radius</span>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-clock"></i>
+                        <div>
+                            <h3>Business Hours</h3>
+                            <p>Mon-Sat: 7AM-7PM</p>
+                            <span>Sunday: 9AM-5PM</span>
+                        </div>
+                    </div>
+                </div>
+                <form class="contact-form" id="contact-form" data-aos="fade-left">
+                    <div class="form-group">
+                        <input type="text" id="name" name="name" placeholder="Your Name" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="email" id="email" name="email" placeholder="Your Email" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="tel" id="phone" name="phone" placeholder="Your Phone Number">
+                    </div>
+                    <div class="form-group">
+                        <select id="service" name="service" required>
+                            <option value="">Select Service Type</option>
+                            <option value="residential">Residential Cleanout</option>
+                            <option value="commercial">Commercial Service</option>
+                            <option value="construction">Construction Debris</option>
+                            <option value="eco-friendly">Eco-Friendly Disposal</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <textarea id="message" name="message" placeholder="Describe your junk removal needs..." rows="4" required></textarea>
+                    </div>
+                    <button type="submit" class="submit-btn">Get Free Quote</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <div class="footer-logo">
+                        <i class="fas fa-truck"></i>
+                        <span>CleanSweep</span>
+                    </div>
+                    <p>Professional junk removal services you can trust. Fast, reliable, and eco-friendly solutions for all your cleanup needs.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin"></i></a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h3>Services</h3>
+                    <ul>
+                        <li><a href="#residential">Residential Cleanouts</a></li>
+                        <li><a href="#commercial">Commercial Services</a></li>
+                        <li><a href="#construction">Construction Debris</a></li>
+                        <li><a href="#eco-friendly">Eco-Friendly Disposal</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Company</h3>
+                    <ul>
+                        <li><a href="#about">About Us</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                        <li><a href="#">Careers</a></li>
+                        <li><a href="#">Blog</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Contact Info</h3>
+                    <div class="footer-contact">
+                        <p><i class="fas fa-phone"></i> (555) 123-JUNK</p>
+                        <p><i class="fas fa-envelope"></i> info@cleansweepjunk.com</p>
+                        <p><i class="fas fa-map-marker-alt"></i> Greater Metro Area</p>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 CleanSweep Junk Removal. All rights reserved.</p>
+                <div class="footer-links">
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Terms of Service</a>
+                    <a href="#">Sitemap</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Quote Modal -->
+    <div id="quote-modal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeQuoteModal()">&times;</span>
+            <h2>Get Your Free Quote</h2>
+            <form id="quote-form">
+                <div class="form-row">
+                    <div class="form-group">
+                        <input type="text" placeholder="First Name" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" placeholder="Last Name" required>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <input type="email" placeholder="Email Address" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="tel" placeholder="Phone Number" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <input type="text" placeholder="Service Address" required>
+                </div>
+                <div class="form-group">
+                    <select required>
+                        <option value="">Select Service Type</option>
+                        <option value="residential">Residential Cleanout</option>
+                        <option value="commercial">Commercial Service</option>
+                        <option value="construction">Construction Debris</option>
+                        <option value="eco-friendly">Eco-Friendly Disposal</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <textarea placeholder="Describe your junk removal needs..." rows="4" required></textarea>
+                </div>
+                <button type="submit" class="submit-btn">Get My Free Quote</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="{% static 'junk/js/script.js' %}"></script>
+</body>
+</html>
