@@ -154,17 +154,53 @@ function stopTestimonialAutoplay() {
 
 // Form Handling Setup
 function setupFormHandling() {
-    const contactForm = document.getElementById('contact-form');
-    const quoteForm = document.getElementById('quote-form');
-    
-    if (contactForm) {
-        contactForm.addEventListener('submit', handleContactForm);
-    }
-    
-    if (quoteForm) {
-        quoteForm.addEventListener('submit', handleQuoteForm);
-    }
+  const contactForm = document.getElementById('contact-form');
+  if (contactForm) {
+    contactForm.addEventListener('submit', handleContactForm);
+  }
+
+  const quoteForm = document.getElementById('quote-form');
+  if (quoteForm) {
+    quoteForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const fd = new FormData(quoteForm);
+      // safety: ensure backend knows which form posted
+      if (!fd.get('_form')) fd.append('_form', 'quote');
+
+      const submitBtn = quoteForm.querySelector('.submit-btn');
+      const originalText = submitBtn.textContent;
+      submitBtn.textContent = 'Processing...';
+      submitBtn.disabled = true;
+
+      try {
+        const resp = await fetch(quoteForm.action, {
+          method: 'POST',
+          headers: { 'X-Requested-With': 'XMLHttpRequest' },
+          body: fd
+        });
+
+        if (resp.ok) {
+          closeQuoteModal();
+          showNotification("Thanks! We’ll contact you shortly.", "success");
+          quoteForm.reset();
+        } else {
+          let data = {};
+          try { data = await resp.json(); } catch (_) {}
+          console.error('Errors:', data.errors || data);
+          showNotification('Please check your inputs and try again.', 'error');
+        }
+      } catch (err) {
+        console.error(err);
+        showNotification('Network error. Please try again.', 'error');
+      } finally {
+        submitBtn.textContent = originalText;
+        submitBtn.disabled = false;
+      }
+    });
+  }
 }
+
 
 function handleContactForm(e) {
     e.preventDefault();
@@ -187,27 +223,7 @@ function handleContactForm(e) {
     }, 2000);
 }
 
-function handleQuoteForm(e) {
-    e.preventDefault();
-    
-    const formData = new FormData(e.target);
-    const data = Object.fromEntries(formData);
-    
-    // Show loading state
-    const submitBtn = e.target.querySelector('.submit-btn');
-    const originalText = submitBtn.textContent;
-    submitBtn.textContent = 'Processing...';
-    submitBtn.disabled = true;
-    
-    // Simulate form submission (replace with actual API call)
-    setTimeout(() => {
-        showNotification('Quote request submitted! We\'ll contact you within 2 hours.', 'success');
-        closeQuoteModal();
-        e.target.reset();
-        submitBtn.textContent = originalText;
-        submitBtn.disabled = false;
-    }, 2000);
-}
+
 
 // Modal Functions
 function openQuoteModal() {
@@ -493,3 +509,5 @@ window.addEventListener('beforeprint', () => {
 window.addEventListener('afterprint', () => {
     document.body.classList.remove('printing');
 });
+
+

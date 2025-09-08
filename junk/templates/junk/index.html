@@ -410,45 +410,62 @@
 
     <!-- Quote Modal -->
     <div id="quote-modal" class="modal">
-        <div class="modal-content">
-            <span class="close" onclick="closeQuoteModal()">&times;</span>
-            <h2>Get Your Free Quote</h2>
-            <form id="quote-form">
-                <div class="form-row">
-                    <div class="form-group">
-                        <input type="text" placeholder="First Name" required>
-                    </div>
-                    <div class="form-group">
-                        <input type="text" placeholder="Last Name" required>
-                    </div>
-                </div>
-                <div class="form-row">
-                    <div class="form-group">
-                        <input type="email" placeholder="Email Address" required>
-                    </div>
-                    <div class="form-group">
-                        <input type="tel" placeholder="Phone Number" required>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <input type="text" placeholder="Service Address" required>
-                </div>
-                <div class="form-group">
-                    <select required>
-                        <option value="">Select Service Type</option>
-                        <option value="residential">Residential Cleanout</option>
-                        <option value="commercial">Commercial Service</option>
-                        <option value="construction">Construction Debris</option>
-                        <option value="eco-friendly">Eco-Friendly Disposal</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <textarea placeholder="Describe your junk removal needs..." rows="4" required></textarea>
-                </div>
-                <button type="submit" class="submit-btn">Get My Free Quote</button>
-            </form>
+    <div class="modal-content">
+        <span class="close" onclick="closeQuoteModal()">&times;</span>
+        <h2>Get Your Free Quote</h2>
+
+        <form id="quote-form" action="{% url 'index' %}" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <input type="hidden" name="_form" value="quote">
+
+        <div class="form-row">
+            <div class="form-group">
+            <input type="text" name="first_name" placeholder="First Name" required>
+            </div>
+            <div class="form-group">
+            <input type="text" name="last_name" placeholder="Last Name" required>
+            </div>
         </div>
+
+        <div class="form-row">
+            <div class="form-group">
+            <input type="email" name="email" placeholder="Email Address" required>
+            </div>
+            <div class="form-group">
+            <input type="tel" name="phone" placeholder="Phone Number">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <input type="text" name="service_address" placeholder="Service Address" required>
+        </div>
+
+        <div class="form-group">
+            <select name="service_type" required>
+            <option value="">Select Service Type</option>
+            <option value="residential">Residential Cleanout</option>
+            <option value="commercial">Commercial Service</option>
+            <option value="construction">Construction Debris</option>
+            <option value="eco-friendly">Eco-Friendly Disposal</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <textarea name="description" placeholder="Describe your junk removal needs..." rows="4" required></textarea>
+        </div>
+
+        <!-- NEW: image upload -->
+        <div class="form-group">
+            <label for="id_image" style="display:block;margin-bottom:0.25rem;">Upload an image (optional)</label>
+            <input type="file" id="id_image" name="image" accept=".jpg,.jpeg,.png,.webp,.gif">
+        </div>
+
+        <button type="submit" class="submit-btn">Get My Free Quote</button>
+        </form>
     </div>
+    </div>
+
+
 
     <script src="{% static 'junk/js/script.js' %}"></script>
 </body>
