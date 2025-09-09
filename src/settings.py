@@ -30,7 +30,8 @@ SECRET_KEY = os.environ.get("SECRET_KEY", "unsafe-default")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get("DEBUG", "False") == "True"
 
-ALLOWED_HOSTS = ["aialljunkremoval.pythonanywhere.com", "localhost"]
+ALLOWED_HOSTS = os.getenv("ALLOWED_HOSTS", "").split(",")
+ALLOWED_HOSTS = [host.strip() for host in ALLOWED_HOSTS if host.strip()]
 
 
 # Application definition
