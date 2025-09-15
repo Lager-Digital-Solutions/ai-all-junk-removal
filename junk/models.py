@@ -42,6 +42,7 @@ class QuoteRequest(models.Model):
     def __str__(self):
         return f"{self.first_name} {self.last_name} • {self.get_service_type_display()} • {self.created_at:%Y-%m-%d}"
 
+
 def _prune_parent_dirs_if_empty(image_field):
     try:
         # Only for local filesystem where .path is available

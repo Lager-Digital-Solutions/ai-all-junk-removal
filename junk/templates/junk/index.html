@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CleanSweep Junk Removal - Professional Junk Removal Services</title>
+    <title>AI All Junk Removal - Professional Junk Removal Services</title>
     <meta name="description" content="Professional junk removal services for homes and businesses. Fast, reliable, and eco-friendly disposal. Get your free quote today!">
     <link rel="stylesheet" href="{% static 'junk/css/styles.css' %}">
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
@@ -43,7 +43,7 @@
                     <li><a href="#about" class="nav-link">About Us</a></li>
                     <li><a href="#contact" class="nav-link">Contact</a></li>
                 </ul>
-                <button class="cta-button">Get Free Quote</button>
+                {% comment %} <button class="cta-button">Get Free Quote</button> {% endcomment %}
                 <div class="hamburger" id="hamburger">
                     <span></span>
                     <span></span>
@@ -100,7 +100,7 @@
                         <li>Estate Cleanouts</li>
                         <li>Garage Cleaning</li>
                     </ul>
-                    <button class="service-btn">Learn More</button>
+                    
                 </div>
                 <div class="service-card" data-aos="fade-up" data-aos-delay="100">
                     <div class="service-icon">
@@ -114,7 +114,7 @@
                         <li>Warehouse Cleaning</li>
                         <li>Equipment Removal</li>
                     </ul>
-                    <button class="service-btn">Learn More</button>
+                    
                 </div>
                 <div class="service-card" data-aos="fade-up" data-aos-delay="200">
                     <div class="service-icon">
@@ -128,7 +128,7 @@
                         <li>Drywall & Flooring</li>
                         <li>Contractor Services</li>
                     </ul>
-                    <button class="service-btn">Learn More</button>
+                    
                 </div>
                 <div class="service-card" data-aos="fade-up" data-aos-delay="300">
                     <div class="service-icon">
@@ -142,7 +142,7 @@
                         <li>Electronic Waste</li>
                         <li>Hazardous Materials</li>
                     </ul>
-                    <button class="service-btn">Learn More</button>
+                    
                 </div>
             </div>
         </div>
@@ -198,7 +198,7 @@
                             <i class="fas fa-star"></i>
                             <i class="fas fa-star"></i>
                         </div>
-                        <p>"CleanSweep made our office renovation so much easier. They removed all the old furniture and debris quickly and professionally. Highly recommend!"</p>
+                        <p>"AI All Junk Removal made our office renovation so much easier. They removed all the old furniture and debris quickly and professionally. Highly recommend!"</p>
                         <div class="testimonial-author">
                             <strong>Sarah Johnson</strong>
                             <span>Business Owner</span>
@@ -254,8 +254,8 @@
         <div class="container">
             <div class="about-content">
                 <div class="about-text" data-aos="fade-right">
-                    <h2>About CleanSweep</h2>
-                    <p>With over 10 years of experience in the junk removal industry, CleanSweep has become the trusted choice for homeowners and businesses throughout the region.</p>
+                    <h2>About AI All Junk Removal</h2>
+                    <p>With over 10 years of experience in the junk removal industry, AI All Junk Removal has become the trusted choice for homeowners and businesses throughout the region.</p>
                     <p>We're committed to providing fast, reliable service while maintaining our focus on environmental responsibility. Our team is fully licensed, insured, and trained to handle any junk removal challenge.</p>
                     <div class="about-stats">
                         <div class="stat">
@@ -287,7 +287,7 @@
                     </div>
                 </div>
                 <div class="about-image" data-aos="fade-left">
-                    <img src="{% static 'junk/images/team.webp' %}" alt="CleanSweep professional team">
+                    <img src="{% static 'junk/images/team.webp' %}" alt="AI All Junk Removal professional team">
                 </div>
             </div>
         </div>
@@ -335,30 +335,7 @@
                         </div>
                     </div>
                 </div>
-                <form class="contact-form" id="contact-form" data-aos="fade-left">
-                    <div class="form-group">
-                        <input type="text" id="name" name="name" placeholder="Your Name" required>
-                    </div>
-                    <div class="form-group">
-                        <input type="email" id="email" name="email" placeholder="Your Email" required>
-                    </div>
-                    <div class="form-group">
-                        <input type="tel" id="phone" name="phone" placeholder="Your Phone Number">
-                    </div>
-                    <div class="form-group">
-                        <select id="service" name="service" required>
-                            <option value="">Select Service Type</option>
-                            <option value="residential">Residential Cleanout</option>
-                            <option value="commercial">Commercial Service</option>
-                            <option value="construction">Construction Debris</option>
-                            <option value="eco-friendly">Eco-Friendly Disposal</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <textarea id="message" name="message" placeholder="Describe your junk removal needs..." rows="4" required></textarea>
-                    </div>
-                    <button type="submit" class="submit-btn">Get Free Quote</button>
-                </form>
+                
             </div>
         </div>
     </section>
@@ -370,7 +347,7 @@
                 <div class="footer-section">
                     <div class="footer-logo">
                         <i class="fas fa-truck"></i>
-                        <span>CleanSweep</span>
+                        <span>AI All Junk Removal</span>
                     </div>
                     <p>Professional junk removal services you can trust. Fast, reliable, and eco-friendly solutions for all your cleanup needs.</p>
                     <div class="social-links">
@@ -394,26 +371,19 @@
                     <ul>
                         <li><a href="#about">About Us</a></li>
                         <li><a href="#contact">Contact</a></li>
-                        <li><a href="#">Careers</a></li>
-                        <li><a href="#">Blog</a></li>
                     </ul>
                 </div>
                 <div class="footer-section">
                     <h3>Contact Info</h3>
                     <div class="footer-contact">
-                        <p><i class="fas fa-phone"></i> (555) 123-JUNK</p>
-                        <p><i class="fas fa-envelope"></i> info@cleansweepjunk.com</p>
-                        <p><i class="fas fa-map-marker-alt"></i> Greater Metro Area</p>
+                        <p><i class="fas fa-phone"></i> +1 (703) 296-3523</p>
+                        <p><i class="fas fa-envelope"></i> contact@aialljunkremoval.com</p>
+                        <p><i class="fas fa-map-marker-alt"></i> DMV Area</p>
                     </div>
                 </div>
             </div>
             <div class="footer-bottom">
-                <p>&copy; 2024 CleanSweep Junk Removal. All rights reserved.</p>
-                <div class="footer-links">
-                    <a href="#">Privacy Policy</a>
-                    <a href="#">Terms of Service</a>
-                    <a href="#">Sitemap</a>
-                </div>
+                <p>&copy; 2024 AI All Junk Removal. All rights reserved.</p>
             </div>
         </div>
     </footer>
