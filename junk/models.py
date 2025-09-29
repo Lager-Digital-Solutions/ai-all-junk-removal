@@ -90,3 +90,74 @@ def delete_old_file_on_change(sender, instance, **kwargs):
     new_file = getattr(instance, "image", None)
     if old_file and old_file != new_file:
         old_file.delete(save=False)
+
+        
+
+class HeroImage(models.Model):
+    """
+    Images used as rotating backgrounds for the top hero carousel.
+    Provide desktop (landscape) and optional mobile (portrait) versions.
+    """
+    title = models.CharField(max_length=120, blank=True)
+
+    # Desktop / wide screens (landscape)
+    image = models.ImageField(
+        upload_to="hero/desktop/%Y/%m/",
+        help_text="Desktop/wide image (e.g., 2400x1350, 16:9)."
+    )
+
+    # Mobile / narrow screens (portrait)
+    mobile_image = models.ImageField(
+        upload_to="hero/mobile/%Y/%m/",
+        blank=True,
+        null=True,
+        help_text="Optional mobile/portrait image (e.g., 1080x1920, 9:16)."
+    )
+
+    is_active = models.BooleanField(default=True, help_text="Uncheck to hide without deleting.")
+    sort_order = models.PositiveIntegerField(default=0, help_text="Lower appears first.")
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ["sort_order", "-created_at"]
+
+    def __str__(self):
+        return self.title or f"Hero Image #{self.pk}"
+
+# --- HeroImage file lifecycle management ---
+
+@receiver(post_delete, sender=HeroImage)
+def delete_hero_file_on_row_delete(sender, instance, **kwargs):
+    # Delete desktop file
+    if instance.image:
+        instance.image.delete(save=False)
+        _prune_parent_dirs_if_empty(instance.image)
+    # Delete mobile file (if any)
+    if getattr(instance, "mobile_image", None):
+        instance.mobile_image.delete(save=False)
+        _prune_parent_dirs_if_empty(instance.mobile_image)
+
+@receiver(pre_save, sender=HeroImage)
+def delete_old_hero_file_on_change(sender, instance, **kwargs):
+    if not instance.pk:
+        return
+    try:
+        old = HeroImage.objects.get(pk=instance.pk)
+    except HeroImage.DoesNotExist:
+        return
+
+    # Desktop file change
+    old_desktop = getattr(old, "image", None)
+    new_desktop = getattr(instance, "image", None)
+    if old_desktop and old_desktop != new_desktop:
+        old_path_field = old_desktop
+        old_desktop.delete(save=False)
+        _prune_parent_dirs_if_empty(old_path_field)
+
+    # Mobile file change
+    old_mobile = getattr(old, "mobile_image", None)
+    new_mobile = getattr(instance, "mobile_image", None)
+    if old_mobile and old_mobile != new_mobile:
+        old_path_field = old_mobile
+        old_mobile.delete(save=False)
+        _prune_parent_dirs_if_empty(old_path_field)

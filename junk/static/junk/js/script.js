@@ -361,27 +361,41 @@ function setupAnimations() {
 }
 
 function animateCounter(element) {
-    const target = element.textContent;
-    const isPercentage = target.includes('%');
-    const isPlusSign = target.includes('+');
-    const numericValue = parseInt(target.replace(/[^\d]/g, ''));
-    
-    let current = 0;
-    const increment = numericValue / 50;
-    const timer = setInterval(() => {
-        current += increment;
-        if (current >= numericValue) {
-            current = numericValue;
-            clearInterval(timer);
-        }
-        
-        let displayValue = Math.floor(current).toLocaleString();
-        if (isPercentage) displayValue += '%';
-        if (isPlusSign) displayValue += '+';
-        
-        element.textContent = displayValue;
-    }, 40);
+  const raw = (element.textContent || "").trim();
+
+  // Capture a leading integer and keep the rest (suffix) exactly as written.
+  // Works for "30+", "95%", "24/7", "1,200 bookings", etc.
+  const m = raw.match(/^(\d[\d,]*)(.*)$/);
+  if (!m) {
+    // Nothing to animate (no leading number) — leave as is.
+    return;
+  }
+
+  const leadingNumStr = m[1].replace(/,/g, "");
+  const suffix = m[2] || "";
+
+  const numericValue = parseInt(leadingNumStr, 10);
+  if (isNaN(numericValue)) return;
+
+  let current = 0;
+  const steps = 50;
+  const increment = Math.max(1, Math.ceil(numericValue / steps));
+  const intervalMs = 40;
+
+  const tick = () => {
+    current += increment;
+    if (current >= numericValue) {
+      current = numericValue;
+      clearInterval(timer);
+    }
+    const displayValue = current.toLocaleString();
+    element.textContent = displayValue + suffix; // preserve exact suffix (e.g., "/7", "%", "+")
+  };
+
+  const timer = setInterval(tick, intervalMs);
+  tick();
 }
+
 
 // Service Card Interactions
 document.addEventListener('DOMContentLoaded', () => {
@@ -510,4 +524,116 @@ window.addEventListener('afterprint', () => {
     document.body.classList.remove('printing');
 });
 
+// --- Hero background carousel (desktop+mobile images) ---
+(function () {
+  const slidesWrap = document.getElementById('hero-slides');
+  if (!slidesWrap) return;
+  const slides = Array.from(slidesWrap.querySelectorAll('.hero-slide'));
+  if (!slides.length) return;
 
+  const dotsWrap = document.getElementById('hero-dots');
+  const dots = dotsWrap ? Array.from(dotsWrap.querySelectorAll('.hero-dot')) : [];
+
+  const hero = document.getElementById('home');
+  const prevBtn = document.getElementById('hero-prev');
+  const nextBtn = document.getElementById('hero-next');
+
+  // Match small screens (same breakpoint as CSS)
+  const mq = window.matchMedia('(max-width: 640px)');
+
+  function applyBackgrounds() {
+    const useMobile = mq.matches;
+    slides.forEach(slide => {
+      const desk = slide.getAttribute('data-desktop');
+      const mob = slide.getAttribute('data-mobile');
+      const url = (useMobile && mob) ? mob : desk;
+      if (url) {
+        slide.style.backgroundImage = `url('${url}')`;
+      }
+    });
+  }
+
+  // Run once on load and again when breakpoint changes
+  applyBackgrounds();
+  if (mq.addEventListener) {
+    mq.addEventListener('change', applyBackgrounds);
+  } else {
+    // Safari <14 fallback
+    mq.addListener(applyBackgrounds);
+  }
+
+  let idx = slides.findIndex(s => s.classList.contains('is-active'));
+  if (idx < 0) idx = 0;
+  let timer = null;
+  const intervalMs = 3000;   // auto-swipe every 3s
+  let isPaused = false;
+
+  function go(to) {
+    if (to === idx) return;
+    slides[idx].classList.remove('is-active');
+    if (dots[idx]) dots[idx].classList.remove('is-active');
+
+    idx = (to + slides.length) % slides.length;
+
+    slides[idx].classList.add('is-active');
+    if (dots[idx]) dots[idx].classList.add('is-active');
+  }
+
+  function next() { go(idx + 1); }
+  function prev() { go(idx - 1); }
+
+  function start() {
+    stop();
+    timer = setInterval(() => { if (!isPaused) next(); }, intervalMs);
+  }
+  function stop() {
+    if (timer) clearInterval(timer);
+    timer = null;
+  }
+
+  // Pause on hover (desktop)
+  if (hero) {
+    hero.addEventListener('mouseenter', () => { isPaused = true; });
+    hero.addEventListener('mouseleave', () => { isPaused = false; });
+  }
+
+  // Dots click
+  dots.forEach((d) => {
+    d.addEventListener('click', () => {
+      const i = Number(d.getAttribute('data-index') || '0');
+      go(i);
+    });
+  });
+
+  // Arrow clicks
+  if (prevBtn) prevBtn.addEventListener('click', prev);
+  if (nextBtn) nextBtn.addEventListener('click', next);
+
+  // Touch swipe (mobile)
+  let touchStartX = 0;
+  let touchEndX = 0;
+  if (hero) {
+    hero.addEventListener('touchstart', (e) => {
+      touchStartX = e.changedTouches[0].screenX;
+    }, { passive: true });
+    hero.addEventListener('touchend', (e) => {
+      touchEndX = e.changedTouches[0].screenX;
+      const dx = touchEndX - touchStartX;
+      if (Math.abs(dx) > 30) {
+        if (dx < 0) next();
+        else prev();
+      }
+    }, { passive: true });
+  }
+
+  start();
+})();
+
+function setHeaderHeightVar() {
+  const header = document.querySelector('.header');
+  if (!header) return;
+  const h = Math.ceil(header.getBoundingClientRect().height);
+  document.documentElement.style.setProperty('--header-height', `${h}px`);
+}
+window.addEventListener('load', setHeaderHeightVar);
+window.addEventListener('resize', () => setHeaderHeightVar());

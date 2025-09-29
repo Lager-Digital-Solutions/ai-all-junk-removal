@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import QuoteRequest
+from .models import *
 
 # Register your models here.
 @admin.action(description="Delete selected quotes (including uploaded files)")
@@ -15,3 +15,10 @@ class QuoteRequestAdmin(admin.ModelAdmin):
     readonly_fields = ("created_at",)
     actions = [delete_with_files]
 
+@admin.register(HeroImage)
+class HeroImageAdmin(admin.ModelAdmin):
+    list_display = ("__str__", "is_active", "sort_order", "created_at")
+    list_editable = ("is_active", "sort_order")
+    search_fields = ("title",)
+    ordering = ("sort_order", "-created_at")
+    fields = ("title", "image", "mobile_image", "is_active", "sort_order")

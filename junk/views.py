@@ -7,10 +7,10 @@ from django.contrib import messages
 from .forms import QuoteRequestForm
 from .emails import send_quote_notification_to_owner, send_quote_autoreply_to_customer
 from django.conf import settings
+from .models import * 
 
 
 # Create your views here.
-
 def index(request):
     """
     GET  -> render the landing page
@@ -30,12 +30,10 @@ def index(request):
                 send_quote_notification_to_owner(qr)
                 send_quote_autoreply_to_customer(qr)  # remove if you don’t want auto-reply
             except Exception as e:
-                # Surface the error while you’re debugging
                 import logging
                 logging.getLogger(__name__).exception("Email send failed")
                 if settings.DEBUG:
                     messages.error(request, f"Email error: {e}")
-
 
             # If submitted via fetch/XHR, return JSON (no redirect)
             if request.headers.get("x-requested-with") == "XMLHttpRequest":
@@ -50,5 +48,6 @@ def index(request):
         messages.error(request, "Please correct the errors and try again.")
 
     # Render page (on GET or invalid POST fallback)
-    return render(request, "junk/index.html", {"quote_form": form})
+    hero_images = HeroImage.objects.filter(is_active=True).only("id", "image", "title").order_by("sort_order", "-created_at")
+    return render(request, "junk/index.html", {"quote_form": form, "hero_images": hero_images})
 
